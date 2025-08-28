@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karl Bebidas</title>
+  <!-- Font Awesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      color: #d4ffd4;
+    }
+    header {
+      background-color: #006400;
+      padding: 20px;
+      text-align: center;
+      font-size: 2em;
+      color: white;
+    }
+    section {
+      padding: 20px;
+    }
+    .whatsapp-button, .location-button {
+      display: inline-block;
+      background-color: #25D366;
+      color: white;
+      padding: 15px 25px;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 5px;
+      margin: 10px 10px 0 0;
+    }
+    .gallery {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .gallery img {
+      width: 100%;
+      max-width: 350px;
+      height: 250px;
+      border: 2px solid #25D366;
+      border-radius: 5px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .gallery img:hover {
+      transform: scale(1.03);
+    }
+    .menu {
+      margin-top: 30px;
+    }
+    .menu-category {
+      margin-bottom: 25px;
+    }
+    .menu-category h3 {
+      color: #25D366;
+      border-bottom: 2px solid #25D366;
+      padding-bottom: 5px;
+      font-size: 1.5em;
+    }
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+      padding: 5px 0;
+      border-bottom: 1px dotted #25D366;
+    }
+    .item-name {
+      flex: 2;
+    }
+    .item-price {
+      flex: 1;
+      text-align: right;
+      font-weight: bold;
+    }
+    footer {
+      background-color: #006400;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+    .icons {
+      margin-right: 8px;
+    }
+    /* Estilos para o sistema de mesas */
+    .mesa-section {
+      margin-top: 30px;
+      border: 2px solid #25D366;
+      padding: 15px;
+      border-radius: 5px;
+    }
+    .mesa-form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .mesa-form input, .mesa-form select {
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #25D366;
+      background-color: #000;
+      color: #d4ffd4;
+    }
+    .mesa-form button {
+      background-color: #25D366;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .mesas-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .mesa-card {
+      background-color: #006400;
+      padding: 15px;
+      border-radius: 5px;
+      width: 200px;
+    }
+    .mesa-card h4 {
+      margin-top: 0;
+      border-bottom: 1px solid #25D366;
+      padding-bottom: 5px;
+    }
+    .mesa-card button {
+      background-color: #ff3333;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Cabeçalho -->
+  <header>
+    <i class="fas fa-beer icons"></i>Karl Bebidas
+  </header>
+
+  <!-- Apresentação -->
+  <section>
+    <p>Funcionamos de terça a domingo, das 09:30 às 23:00, podendo se estender conforme o movimento.</p>
+    <p>Servimos bebidas, drinks e petiscos em um ambiente descontraído com música e TV para assistir aos jogos!</p>
+    <a href="https://wa.me/5522998782006" class="whatsapp-button"><i class="fab fa-whatsapp icons"></i>Fale com a gente no WhatsApp</a>
+    <a href="https://maps.app.goo.gl/7svn2KPvTCt4QFZa9" class="location-button" target="_blank"><i class="fas fa-map-marker-alt icons"></i>Como chegar</a>
+  </section>
+
+
+  <!-- Galeria de Imagens -->
+  <section>
+    <h2><i class="fas fa-camera icons"></i>Nosso Espaço</h2>
+    <div class="gallery">
+      <img src="https://i.ibb.co/Xr9gLYmT/bar1.jpg" alt="Interior do bar Karl Bebidas">
+      <img src="https://i.ibb.co/5XtX4rCq/bar2.jpg" alt="Área de atendimento do bar">
+      <img src="https://i.ibb.co/5Xg2cyXL/drink1.jpg" alt="Drinks especiais do Karl Bebidas">
+    </div>
+  </section>
+
+  <!-- Cardápio -->
+  <section class="menu">
+    <h2><i class="fas fa-utensils icons"></i>Cardápio</h2>
+    
+    <div class="menu-category">
+      <h3>🍽️ PORÇÕES</h3>
+      <div class="menu-item">
+        <span class="item-name">Caldo verde</span>
+        <span class="item-price">R$15,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Mocotó</span>
+        <span class="item-price">R$16,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Aipim frito</span>
+        <span class="item-price">R$15,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Calabresa acebolada</span>
+        <span class="item-price">R$15,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Torresmo caseiro</span>
+        <span class="item-price">R$15,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Ovo de codorna</span>
+        <span class="item-price">R$15,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Batata frita</span>
+        <span class="item-price">R$15,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Dobradinha</span>
+        <span class="item-price">R$15,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Bolinho de feijoada</span>
+        <span class="item-price">R$15,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Risole de camarão</span>
+        <span class="item-price">R$15,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Coxinha, bolinha de queijo (porção mista)</span>
+        <span class="item-price">R$15,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Carne de porco temperada</span>
+        <span class="item-price">R$20,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Manjuba frita</span>
+        <span class="item-price">R$15,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Batata frita com frango empanado</span>
+        <span class="item-price">R$20,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Fígado acebolado</span>
+        <span class="item-price">R$15,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Cação frito empanado</span>
+        <span class="item-price">R$20,00</span>
+      </div>
+    </div>
+
+    <div class="menu-category">
+      <h3>🍻 BEBIDAS</h3>
+      <h4>Cervejas - 600 ml</h4>
+      <div class="menu-item">
+        <span class="item-name">Heineken</span>
+        <span class="item-price">R$13,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Antarctica</span>
+        <span class="item-price">R$10,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Brahma</span>
+        <span class="item-price">R$10,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Budweiser</span>
+        <span class="item-price">R$10,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Amstel</span>
+        <span class="item-price">R$10,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Itaipava</span>
+        <span class="item-price">R$8,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Original</span>
+        <span class="item-price">R$10,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Eisenbahn</span>
+        <span class="item-price">R$8,00</span>
+      </div>
+
+      <h4>Litrões</h4>
+      <div class="menu-item">
+        <span class="item-name">Antarctica</span>
+        <span class="item-price">R$10,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Brahma</span>
+        <span class="item-price">R$10,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Budweiser</span>
+        <span class="item-price">R$10,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Amstel</span>
+        <span class="item-price">R$10,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">Itaipava</span>
+        <span class="item-price">R$8,00</span>
+      </div>
+    </div>
+
+    <div class="menu-category">
+      <h3>🍹 COPÃO</h3>
+      <div class="menu-item">
+        <span class="item-name">Copão unitário</span>
+        <span class="item-price">R$25,00</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">3 unidades</span>
+        <span class="item-price">R$20,00 cada</span>
+      </div>
+      <div class="menu-item">
+        <span class="item-name">5 unidades ou mais</span>
+        <span class="item-price">R$15,00 cada</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer>
+    Funcionamento: Terça a Domingo, das 09:30 às 23:00<br>
+    Contato: (22) 99878-2006
+  </footer>
+
+  <script>
+    // Array para armazenar as mesas ocupadas
+    let mesasOcupadas = [];
+
+    // Função para adicionar uma nova mesa
+    function adicionarMesa() {
+      const nomeCliente = document.getElementById('clienteNome').value;
+      const numeroMesa = document.getElementById('mesaNumero').value;
+
+      if (!nomeCliente || !numeroMesa) {
+        alert('Por favor, preencha todos os campos!');
+        return;
+      }
+
+      // Verifica se a mesa já está ocupada
+      if (mesasOcupadas.some(mesa => mesa.numero === numeroMesa)) {
+        alert(`Mesa ${numeroMesa} já está ocupada!`);
+        return;
+      }
+
+      // Adiciona a nova mesa ao array
+      const novaMesa = {
+        numero: numeroMesa,
+        cliente: nomeCliente,
+        horaAbertura: new Date().toLocaleTimeString()
+      };
+      mesasOcupadas.push(novaMesa);
+
+      // Atualiza a exibição das mesas
+      atualizarListaMesas();
+
+      // Limpa os campos do formulário
+      document.getElementById('clienteNome').value = '';
+      document.getElementById('mesaNumero').value = '';
+    }
+
+    // Função para remover uma mesa
+    function removerMesa(numeroMesa) {
+      mesasOcupadas = mesasOcupadas.filter(mesa => mesa.numero !== numeroMesa);
+      atualizarListaMesas();
+    }
+
+    // Função para atualizar a exibição das mesas
+    function atualizarListaMesas() {
+      const mesasList = document.getElementById('mesasList');
+      mesasList.innerHTML = '';
+
+      mesasOcupadas.forEach(mesa => {
+        const mesaCard = document.createElement('div');
+        mesaCard.className = 'mesa-card';
+        mesaCard.innerHTML = `
+          <h4>Mesa ${mesa.numero}</h4>
+          <p><strong>Cliente:</strong> ${mesa.cliente}</p>
+          <p><strong>Hora de abertura:</strong> ${mesa.horaAbertura}</p>
+          <button onclick="removerMesa('${mesa.numero}')">Liberar Mesa</button>
+        `;
+        mesasList.appendChild(mesaCard);
+      });
+    }
+  </script>
+</body>
+</html>
