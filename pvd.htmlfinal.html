@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Comanda - Depósito Karl Bebidas</title>
+  <style>
+    body {
+      background-color: #000000;
+      color: #00FF00;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #000000;
+      padding: 1rem;
+      text-align: center;
+      border-bottom: 2px solid #00FF00;
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      color: #00FF00;
+      text-shadow: 0 0 5px #00FF00;
+    }
+    .container {
+      padding: 1rem;
+      max-width: 600px;
+      margin: auto;
+    }
+    .mesa {
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      border: 2px solid #00FF00;
+      border-radius: 5px;
+      background-color: #121212;
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+    }
+    button {
+      background-color: #00FF00;
+      color: #000000;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 3px;
+      cursor: pointer;
+      margin-right: 0.5rem;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+    button:hover {
+      background-color: #00CC00;
+      transform: scale(1.05);
+    }
+    select, input {
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      border-radius: 3px;
+      border: 1px solid #00FF00;
+      font-size: 1rem;
+      width: 100%;
+      box-sizing: border-box;
+      color: #000000;
+      background-color: #FFFFFF;
+    }
+    ul {
+      padding-left: 1.2rem;
+      list-style-type: none;
+    }
+    ul li {
+      margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.3rem;
+      border-bottom: 1px dashed #00FF00;
+    }
+    ul li button {
+      background-color: #FF0000;
+      color: white;
+      padding: 0 8px;
+      border-radius: 50%;
+      margin-left: 10px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      line-height: 1rem;
+      width: 22px;
+      height: 22px;
+      text-align: center;
+    }
+    ul li button:hover {
+      background-color: #CC0000;
+    }
+    .total {
+      font-weight: bold;
+      margin-top: 0.8rem;
+      font-size: 1.1rem;
+      color: #00FF00;
+      text-align: right;
+    }
+    #limpar-tudo-btn {
+      background-color: #FF0000;
+      color: white;
+      margin: 1rem 0;
+      width: 100%;
+    }
+    #nomeCliente {
+      background-color: #222;
+      color: #00FF00;
+      border: 1px solid #00FF00;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Depósito Karl Bebidas</h1>
+  </header>
+  <div class="container">
+    <input type="text" id="nomeCliente" placeholder="Nome do Cliente" />
+    <button onclick="abrirMesa()">Abrir Mesa</button>
+    <button id="limpar-tudo-btn" onclick="limparTudo()">Limpar Tudo</button>
+    <div id="mesas"></div>
+  </div>
+
+  <script>
+    const cardapio = {
+      'Porção Caldo Verde': 16,
+      'Porção Mocotó': 16,
+      'Porção Aipim Frito': 15,
+      'Porção Calabresa Acebolada': 15,
+      'Porção Torresmo Caseiro': 15,
+      'Porção Ovo de Codorna': 15,
+      'Porção Batata Frita': 15,
+      'Porção Dobradinha': 15,
+      'Porção Bolinho de Feijoada': 15,
+      'Porção Risole de Camarão': 15,
+      'Porção Coxinha, Bolinha de Queijo': 15,
+      'Porção Carne de Porco Temperada': 20,
+      'Porção Manjuba Frita': 15,
+      'Porção Batata Frita c/ Frango Empanado': 20,
+      'Porção Fígado Acebolado': 15,
+      'Porção Cação Frito Empanado': 20,
+      'Heineken 600ml': 13,
+      'Antarctica Litrão': 10,
+      'Brahma Litrão': 10,
+      'Budweiser Litrão': 10,
+      'Amstel Litrão': 10,
+      'Itaipava Litrão': 8,
+      'Antarctica 600ml': 10,
+      'Original 600ml': 10,
+      'Brahma 600ml': 10,
+      'Eisenbahn 600ml': 8,
+      'Copão': 25,
+      'Copão (3 unidades ou mais)': 20,
+      'Cigarro avulso': 1,
+      'Cigarro premium': 2
+    };
+
+    let mesas = [];
+    let selecoesAtuais = {};
+    let proximoNumeroMesa = 1;
+
+    // Carregar mesas do localStorage ao iniciar
+    window.onload = () => {
+      const mesasSalvas = localStorage.getItem('mesas');
+      const numeracaoSalva = localStorage.getItem('proximoNumeroMesa');
+      
+      if (numeracaoSalva) {
+        proximoNumeroMesa = parseInt(numeracaoSalva);
+      }
+      
+      if (mesasSalvas) {
+        mesas = JSON.parse(mesasSalvas);
+        mesas.forEach((_, index) => {
+          selecoesAtuais[index] = Object.keys(cardapio)[0];
+        });
+        atualizarMesas();
+      }
+    };
+
+    function salvarEstado() {
+      localStorage.setItem('mesas', JSON.stringify(mesas));
+      localStorage.setItem('proximoNumeroMesa', proximoNumeroMesa.toString());
+    }
+
+    function abrirMesa() {
+      const nome = document.getElementById('nomeCliente').value.trim();
+      if (!nome) {
+        alert('Digite o nome do cliente.');
+        return;
+      }
+      const novaMesaIndex = mesas.length;
+      mesas.push({ 
+        nome, 
+        pedidos: [],
+        numeroMesa: proximoNumeroMesa++
+      });
+      selecoesAtuais[novaMesaIndex] = Object.keys(cardapio)[0];
+      document.getElementById('nomeCliente').value = '';
+      atualizarMesas();
+      salvarEstado();
+    }
+
+    function atualizarMesas() {
+      const div = document.getElementById('mesas');
+      div.innerHTML = '';
+
+      // Ordenar mesas pelo número da mesa
+      mesas.sort((a, b) => a.numeroMesa - b.numeroMesa);
+
+      mesas.forEach((mesa, index) => {
+        const total = mesa.pedidos.reduce((acc, p) => acc + p.preco, 0);
+        const mesaDiv = document.createElement('div');
+        mesaDiv.className = 'mesa';
+
+        mesaDiv.innerHTML = `
+          <h2>Mesa ${mesa.numeroMesa} - Cliente: ${mesa.nome}</h2>
+          <select id="item-${index}" onchange="selecoesAtuais[${index}] = this.value">
+            ${Object.entries(cardapio).map(([item, preco]) =>
+              `<option value="${item}" ${item === selecoesAtuais[index] ? 'selected' : ''}>${item} - R$${preco.toFixed(2)}</option>`).join('')}
+          </select>
+          <button onclick="adicionarPedido(${index})">Adicionar Pedido</button>
+          <ul id="lista-pedidos-${index}">
+            ${mesa.pedidos.map((p, i) => `
+              <li>
+                ${p.nome} - R$${p.preco.toFixed(2)}
+                <button onclick="excluirPedido(${index}, ${i})" title="Excluir pedido">&times;</button>
+              </li>`).join('')}
+          </ul>
+          <div class="total">Total: R$${total.toFixed(2)}</div>
+          <button onclick="fecharMesa(${index})" style="background-color: #ff4d4d; color: white; margin-top: 10px;">Fechar Pedido</button>
+        `;
+
+        div.appendChild(mesaDiv);
+      });
+    }
+
+    function adicionarPedido(index) {
+      const itemSelecionado = selecoesAtuais[index];
+      const preco = cardapio[itemSelecionado];
+
+      mesas[index].pedidos.push({ nome: itemSelecionado, preco });
+      atualizarMesas();
+      salvarEstado();
+    }
+
+    function excluirPedido(mesaIndex, pedidoIndex) {
+      mesas[mesaIndex].pedidos.splice(pedidoIndex, 1);
+      atualizarMesas();
+      salvarEstado();
+    }
+
+    function fecharMesa(index) {
+      if (confirm(`Fechar pedido da Mesa ${mesas[index].numeroMesa} (Cliente: ${mesas[index].nome})?`)) {
+        delete selecoesAtuais[index];
+        mesas.splice(index, 1);
+        // Não decrementamos o próximo número para manter a sequência
+        atualizarMesas();
+        salvarEstado();
+      }
+    }
+
+    function limparTudo() {
+      if (confirm('Tem certeza que deseja apagar todas as mesas e pedidos?')) {
+        mesas = [];
+        selecoesAtuais = {};
+        proximoNumeroMesa = 1;
+        localStorage.removeItem('mesas');
+        localStorage.removeItem('proximoNumeroMesa');
+        atualizarMesas();
+      }
+    }
+  </script>
+</body>
+</html>
